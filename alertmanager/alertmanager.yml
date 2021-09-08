@@ -1,0 +1,38 @@
+global:
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 10h
+  receiver: email1
+  routes:
+  - matchers:
+    - alertname="test1"
+    receiver: email1
+  - matchers:
+    - alertname="test2"
+    receiver: email2
+receivers:
+- name: 'email1'
+  email_configs:
+  - to: 'kalana.geesara1@gmail.com'
+    from: 'accelaero.kalana@gmail.com'
+    smarthost: smtp.gmail.com:587
+    auth_username: 'accelaero.kalana@gmail.com'
+    auth_identity: 'accelaero.kalana@gmail.com'
+    auth_password: 'password'
+- name: 'email2'
+  email_configs:
+  - to: 'kalanageesara@gmail.com'
+    from: 'accelaero.kalana@gmail.com'
+    smarthost: smtp.gmail.com:587
+    auth_username: 'accelaero.kalana@gmail.com'
+    auth_identity: 'accelaero.kalana@gmail.com'
+    auth_password: 'password'
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']

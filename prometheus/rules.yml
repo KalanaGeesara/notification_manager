@@ -1,0 +1,48 @@
+groups:
+- name: Fuel Price
+  rules:
+  - alert: Fuel Price Added
+    # Condition for alerting
+    expr: pg_test_fuel_price_id > 0
+    # Annotation - additional informational labels to store more information
+    annotations:
+      title: 'Instance {{ $labels.airport_code }} added'
+      description: '{{ $labels.airport_code }} of job {{ $labels.job }} has been added.'
+    # Labels - additional labels to be attached to the alert
+    labels:
+      severity: 'critical'
+  - alert: Fuel Price Delayed
+    # Condition for alerting
+    expr: pg_delay_5min_fuel_price_id > 0
+    for: 5m
+    # Annotation - additional informational labels to store more information
+    annotations:
+      title: 'Instance {{ $labels.airport_code }} Delayed'
+      description: '{{ $labels.airport_code }} of job {{ $labels.job }} delayed for 5 min.'
+    # Labels - additional labels to be attached to the alert
+    labels:
+      severity: 'critical'
+- name: Flight
+  rules:
+  - alert: Flight Departure Time Delayed by 5 min
+    # Condition for alerting
+    expr: pg_flight_departure_date_time_zulu_delay_5min_flight_reference > 0
+    for: 5m
+    # Annotation - additional informational labels to store more information
+    annotations:
+      title: 'Instance {{ $labels.flight_reference }} added'
+      description: '{{ $labels.flight_number }} of job {{ $labels.job }} delayed for 5 min.'
+    # Labels - additional labels to be attached to the alert
+    labels:
+      severity: 'critical'
+  - alert: Flight Arrival Time Delayed by 5 min
+    # Condition for alerting
+    expr: pg_flight_arrival_date_time_zulu_delay_5min_flight_reference > 0
+    for: 5m
+    # Annotation - additional informational labels to store more information
+    annotations:
+      title: 'Instance {{ $labels.flight_reference }} added'
+      description: '{{ $labels.flight_number }} of job {{ $labels.job }} delayed for 5 min.'
+    # Labels - additional labels to be attached to the alert
+    labels:
+      severity: 'critical'
