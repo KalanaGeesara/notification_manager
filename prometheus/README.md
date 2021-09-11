@@ -10,10 +10,19 @@
 </p>
 
 
+<!-- GETTING STARTED -->
+## Getting Started
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+There are 2 methods you can follow.
 
+### Methos 1
+
+1. docker run --net=host --name=prometheus -p 9090:9090 -v <path_to_prometheus_folder>:/etc/prometheus prom/prometheus 
+
+### Methos 2
+
+1. docker build . -t prometheus 
+2. docker run --net=host --name=prometheus -p 9090:9090 prometheus
 
 
 
